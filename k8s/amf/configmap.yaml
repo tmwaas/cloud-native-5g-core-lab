@@ -1,8 +1,25 @@
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: amf-config
 data:
-  config.yaml: |
-    # AMF configuration placeholder
-    # Replace with your NF-specific configuration.
+  amf.yaml: |
+    info:
+      version: 1.0.0
+      description: AMF configuration
+    configuration:
+      sbi:
+        addr: amf
+        port: 8000
+      ngapIpList:
+        - amf
+      nrfUri: http://nrf:8000
+      plmnSupportList:
+        - mcc: "001"
+          mnc: "01"
+      security:
+        integrityOrder:
+          - NIA2
+        cipheringOrder:
+          - NEA2

@@ -1,8 +1,37 @@
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: smf-config
 data:
-  config.yaml: |
-    # SMF configuration placeholder
-    # Replace with your NF-specific configuration.
+  smf.yaml: |
+    info:
+      version: 1.0.0
+      description: SMF configuration
+    configuration:
+      sbi:
+        addr: smf
+        port: 8000
+      nrfUri: http://nrf:8000
+      userplaneInformation:
+        upNodes:
+          gNB1:
+            type: AN
+            anIp: gnb
+          upf1:
+            type: UPF
+            nodeId: upf
+        links:
+          - a: gNB1
+            b: upf1
+      ueDns:
+        primaryIpv4: 8.8.8.8
+        secondaryIpv4: 8.8.4.4
+      snssaiInfos:
+        - sNssai:
+            sst: 1
+            sd: "010203"
+          dnnInfos:
+            - dnn: "internet"
+              dns:
+                ipv4: 8.8.8.8

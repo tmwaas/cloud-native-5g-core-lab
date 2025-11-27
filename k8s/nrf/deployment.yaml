@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -15,14 +16,29 @@ spec:
         app: nrf
     spec:
       containers:
-      - name: nrf
-        image: your-registry/nrf:latest
-        imagePullPolicy: IfNotPresent
-        volumeMounts:
-        - name: nrf-config
-          mountPath: /etc/nrf/config.yaml
-          subPath: config.yaml
+        - name: nrf
+          image: free5gc/nrf:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+              name: sbi
+          volumeMounts:
+            - name: nrf-config
+              mountPath: /free5gc/config/nrf.yaml
+              subPath: nrf.yaml
       volumes:
-      - name: nrf-config
-        configMap:
-          name: nrf-config
+        - name: nrf-config
+          configMap:
+            name: nrf-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nrf
+spec:
+  selector:
+    app: nrf
+  ports:
+    - name: sbi
+      port: 8000
+      targetPort: 8000

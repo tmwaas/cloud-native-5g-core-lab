@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -15,14 +16,14 @@ spec:
         app: ueransim-ue
     spec:
       containers:
-      - name: ue
-        image: your-registry/ueransim:latest
-        command: ["./nr-ue"]
-        args: ["-c", "/configs/ue.yaml"]
-        volumeMounts:
-        - name: ue-config
-          mountPath: /configs
+        - name: ue
+          image: ueransim:latest
+          command: ["./nr-ue"]
+          args: ["-c", "/configs/ue.yaml"]
+          volumeMounts:
+            - name: ue-config
+              mountPath: /configs
       volumes:
-      - name: ue-config
-        configMap:
-          name: ueransim-ue-config
+        - name: ue-config
+          configMap:
+            name: ueransim-ue-config

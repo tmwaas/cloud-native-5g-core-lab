@@ -1,8 +1,15 @@
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: udm-config
 data:
-  config.yaml: |
-    # UDM configuration placeholder
-    # Replace with your NF-specific configuration.
+  udm.yaml: |
+    info:
+      version: 1.0.0
+      description: UDM configuration
+    configuration:
+      sbi:
+        addr: udm
+        port: 8000
+      nrfUri: http://nrf:8000

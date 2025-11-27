@@ -1,8 +1,17 @@
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: nrf-config
 data:
-  config.yaml: |
-    # NRF configuration placeholder
-    # Replace with your NF-specific configuration.
+  nrf.yaml: |
+    info:
+      version: 1.0.0
+      description: NRF configuration
+    configuration:
+      sbi:
+        addr: nrf
+        port: 8000
+      defaultPlmnId:
+        mcc: "001"
+        mnc: "01"

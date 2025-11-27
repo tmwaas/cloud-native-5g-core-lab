@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -15,14 +16,18 @@ spec:
         app: upf
     spec:
       containers:
-      - name: upf
-        image: your-registry/upf:latest
-        imagePullPolicy: IfNotPresent
-        volumeMounts:
-        - name: upf-config
-          mountPath: /etc/upf/config.yaml
-          subPath: config.yaml
+        - name: upf
+          image: free5gc/upf:latest
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            capabilities:
+              add:
+                - NET_ADMIN
+          volumeMounts:
+            - name: upf-config
+              mountPath: /free5gc/config/upf.yaml
+              subPath: upf.yaml
       volumes:
-      - name: upf-config
-        configMap:
-          name: upf-config
+        - name: upf-config
+          configMap:
+            name: upf-config

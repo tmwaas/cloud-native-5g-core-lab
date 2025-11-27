@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -15,14 +16,29 @@ spec:
         app: ausf
     spec:
       containers:
-      - name: ausf
-        image: your-registry/ausf:latest
-        imagePullPolicy: IfNotPresent
-        volumeMounts:
-        - name: ausf-config
-          mountPath: /etc/ausf/config.yaml
-          subPath: config.yaml
+        - name: ausf
+          image: free5gc/ausf:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+              name: sbi
+          volumeMounts:
+            - name: ausf-config
+              mountPath: /free5gc/config/ausf.yaml
+              subPath: ausf.yaml
       volumes:
-      - name: ausf-config
-        configMap:
-          name: ausf-config
+        - name: ausf-config
+          configMap:
+            name: ausf-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ausf
+spec:
+  selector:
+    app: ausf
+  ports:
+    - name: sbi
+      port: 8000
+      targetPort: 8000

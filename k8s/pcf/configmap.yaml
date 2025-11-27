@@ -1,8 +1,23 @@
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: pcf-config
 data:
-  config.yaml: |
-    # PCF configuration placeholder
-    # Replace with your NF-specific configuration.
+  pcf.yaml: |
+    info:
+      version: 1.0.0
+      description: PCF configuration
+    configuration:
+      sbi:
+        addr: pcf
+        port: 8000
+      nrfUri: http://nrf:8000
+      policyControl:
+        qosProfiles:
+          - name: gold
+            fiveQi: 5
+            gbr: "10M"
+          - name: silver
+            fiveQi: 9
+            gbr: "2M"

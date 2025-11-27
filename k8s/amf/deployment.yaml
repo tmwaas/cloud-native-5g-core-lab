@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -15,14 +16,29 @@ spec:
         app: amf
     spec:
       containers:
-      - name: amf
-        image: your-registry/amf:latest
-        imagePullPolicy: IfNotPresent
-        volumeMounts:
-        - name: amf-config
-          mountPath: /etc/amf/config.yaml
-          subPath: config.yaml
+        - name: amf
+          image: free5gc/amf:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+              name: sbi
+          volumeMounts:
+            - name: amf-config
+              mountPath: /free5gc/config/amf.yaml
+              subPath: amf.yaml
       volumes:
-      - name: amf-config
-        configMap:
-          name: amf-config
+        - name: amf-config
+          configMap:
+            name: amf-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: amf
+spec:
+  selector:
+    app: amf
+  ports:
+    - name: sbi
+      port: 8000
+      targetPort: 8000

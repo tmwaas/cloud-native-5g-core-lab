@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -15,14 +16,29 @@ spec:
         app: smf
     spec:
       containers:
-      - name: smf
-        image: your-registry/smf:latest
-        imagePullPolicy: IfNotPresent
-        volumeMounts:
-        - name: smf-config
-          mountPath: /etc/smf/config.yaml
-          subPath: config.yaml
+        - name: smf
+          image: free5gc/smf:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+              name: sbi
+          volumeMounts:
+            - name: smf-config
+              mountPath: /free5gc/config/smf.yaml
+              subPath: smf.yaml
       volumes:
-      - name: smf-config
-        configMap:
-          name: smf-config
+        - name: smf-config
+          configMap:
+            name: smf-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: smf
+spec:
+  selector:
+    app: smf
+  ports:
+    - name: sbi
+      port: 8000
+      targetPort: 8000

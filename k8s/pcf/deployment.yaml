@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -15,14 +16,29 @@ spec:
         app: pcf
     spec:
       containers:
-      - name: pcf
-        image: your-registry/pcf:latest
-        imagePullPolicy: IfNotPresent
-        volumeMounts:
-        - name: pcf-config
-          mountPath: /etc/pcf/config.yaml
-          subPath: config.yaml
+        - name: pcf
+          image: free5gc/pcf:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+              name: sbi
+          volumeMounts:
+            - name: pcf-config
+              mountPath: /free5gc/config/pcf.yaml
+              subPath: pcf.yaml
       volumes:
-      - name: pcf-config
-        configMap:
-          name: pcf-config
+        - name: pcf-config
+          configMap:
+            name: pcf-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pcf
+spec:
+  selector:
+    app: pcf
+  ports:
+    - name: sbi
+      port: 8000
+      targetPort: 8000

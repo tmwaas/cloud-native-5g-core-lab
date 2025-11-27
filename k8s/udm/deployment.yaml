@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -15,14 +16,29 @@ spec:
         app: udm
     spec:
       containers:
-      - name: udm
-        image: your-registry/udm:latest
-        imagePullPolicy: IfNotPresent
-        volumeMounts:
-        - name: udm-config
-          mountPath: /etc/udm/config.yaml
-          subPath: config.yaml
+        - name: udm
+          image: free5gc/udm:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+              name: sbi
+          volumeMounts:
+            - name: udm-config
+              mountPath: /free5gc/config/udm.yaml
+              subPath: udm.yaml
       volumes:
-      - name: udm-config
-        configMap:
-          name: udm-config
+        - name: udm-config
+          configMap:
+            name: udm-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: udm
+spec:
+  selector:
+    app: udm
+  ports:
+    - name: sbi
+      port: 8000
+      targetPort: 8000

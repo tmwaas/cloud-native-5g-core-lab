@@ -1,8 +1,15 @@
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: ausf-config
 data:
-  config.yaml: |
-    # AUSF configuration placeholder
-    # Replace with your NF-specific configuration.
+  ausf.yaml: |
+    info:
+      version: 1.0.0
+      description: AUSF configuration
+    configuration:
+      sbi:
+        addr: ausf
+        port: 8000
+      nrfUri: http://nrf:8000
