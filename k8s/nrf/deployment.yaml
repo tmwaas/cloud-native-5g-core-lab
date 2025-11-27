@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nrf
+  labels:
+    app: nrf
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nrf
+  template:
+    metadata:
+      labels:
+        app: nrf
+    spec:
+      containers:
+      - name: nrf
+        image: your-registry/nrf:latest
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - name: nrf-config
+          mountPath: /etc/nrf/config.yaml
+          subPath: config.yaml
+      volumes:
+      - name: nrf-config
+        configMap:
+          name: nrf-config

@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: amf-config
+data:
+  config.yaml: |
+    # AMF configuration placeholder
+    # Replace with your NF-specific configuration.

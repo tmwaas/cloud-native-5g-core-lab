@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: amf
+  labels:
+    app: amf
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: amf
+  template:
+    metadata:
+      labels:
+        app: amf
+    spec:
+      containers:
+      - name: amf
+        image: your-registry/amf:latest
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - name: amf-config
+          mountPath: /etc/amf/config.yaml
+          subPath: config.yaml
+      volumes:
+      - name: amf-config
+        configMap:
+          name: amf-config

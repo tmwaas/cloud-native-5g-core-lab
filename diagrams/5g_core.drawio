@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net">
+  <diagram id="5g-core" name="5G Core Architecture">
+    <mxGraphModel>
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="amf" value="AMF" style="shape=rectangle;whiteSpace=wrap;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="80" width="80" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="smf" value="SMF" style="shape=rectangle;whiteSpace=wrap;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="220" y="80" width="80" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="upf" value="UPF" style="shape=rectangle;whiteSpace=wrap;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="80" width="80" height="40" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

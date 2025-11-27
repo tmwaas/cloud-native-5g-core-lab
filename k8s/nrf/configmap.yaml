@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nrf-config
+data:
+  config.yaml: |
+    # NRF configuration placeholder
+    # Replace with your NF-specific configuration.

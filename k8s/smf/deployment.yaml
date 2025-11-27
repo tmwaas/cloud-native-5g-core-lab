@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: smf
+  labels:
+    app: smf
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: smf
+  template:
+    metadata:
+      labels:
+        app: smf
+    spec:
+      containers:
+      - name: smf
+        image: your-registry/smf:latest
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - name: smf-config
+          mountPath: /etc/smf/config.yaml
+          subPath: config.yaml
+      volumes:
+      - name: smf-config
+        configMap:
+          name: smf-config

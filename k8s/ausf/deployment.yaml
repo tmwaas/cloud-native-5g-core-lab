@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ausf
+  labels:
+    app: ausf
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ausf
+  template:
+    metadata:
+      labels:
+        app: ausf
+    spec:
+      containers:
+      - name: ausf
+        image: your-registry/ausf:latest
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - name: ausf-config
+          mountPath: /etc/ausf/config.yaml
+          subPath: config.yaml
+      volumes:
+      - name: ausf-config
+        configMap:
+          name: ausf-config

@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ueransim-gnb
+  labels:
+    app: ueransim-gnb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ueransim-gnb
+  template:
+    metadata:
+      labels:
+        app: ueransim-gnb
+    spec:
+      containers:
+      - name: gnb
+        image: your-registry/ueransim:latest
+        command: ["./nr-gnb"]
+        args: ["-c", "/configs/gnb.yaml"]
+        volumeMounts:
+        - name: gnb-config
+          mountPath: /configs
+      volumes:
+      - name: gnb-config
+        configMap:
+          name: ueransim-gnb-config

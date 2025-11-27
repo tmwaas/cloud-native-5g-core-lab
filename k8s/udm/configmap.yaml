@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: udm-config
+data:
+  config.yaml: |
+    # UDM configuration placeholder
+    # Replace with your NF-specific configuration.

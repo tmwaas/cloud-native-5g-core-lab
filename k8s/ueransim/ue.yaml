@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ueransim-ue
+  labels:
+    app: ueransim-ue
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ueransim-ue
+  template:
+    metadata:
+      labels:
+        app: ueransim-ue
+    spec:
+      containers:
+      - name: ue
+        image: your-registry/ueransim:latest
+        command: ["./nr-ue"]
+        args: ["-c", "/configs/ue.yaml"]
+        volumeMounts:
+        - name: ue-config
+          mountPath: /configs
+      volumes:
+      - name: ue-config
+        configMap:
+          name: ueransim-ue-config

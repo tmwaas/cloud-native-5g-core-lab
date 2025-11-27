@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: upf
+  labels:
+    app: upf
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: upf
+  template:
+    metadata:
+      labels:
+        app: upf
+    spec:
+      containers:
+      - name: upf
+        image: your-registry/upf:latest
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - name: upf-config
+          mountPath: /etc/upf/config.yaml
+          subPath: config.yaml
+      volumes:
+      - name: upf-config
+        configMap:
+          name: upf-config

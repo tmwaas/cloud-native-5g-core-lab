@@ -1,0 +1,16 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Validate YAML
+      uses: ibiqlik/action-yamllint@v3
+      with:
+        file_or_dir: k8s

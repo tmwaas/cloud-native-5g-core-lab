@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pcf
+  labels:
+    app: pcf
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pcf
+  template:
+    metadata:
+      labels:
+        app: pcf
+    spec:
+      containers:
+      - name: pcf
+        image: your-registry/pcf:latest
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - name: pcf-config
+          mountPath: /etc/pcf/config.yaml
+          subPath: config.yaml
+      volumes:
+      - name: pcf-config
+        configMap:
+          name: pcf-config

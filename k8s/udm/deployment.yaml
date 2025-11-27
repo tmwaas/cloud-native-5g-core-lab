@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: udm
+  labels:
+    app: udm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: udm
+  template:
+    metadata:
+      labels:
+        app: udm
+    spec:
+      containers:
+      - name: udm
+        image: your-registry/udm:latest
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - name: udm-config
+          mountPath: /etc/udm/config.yaml
+          subPath: config.yaml
+      volumes:
+      - name: udm-config
+        configMap:
+          name: udm-config
